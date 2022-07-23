@@ -20,7 +20,6 @@ def primefactors(num):
     factors = {}
     factors[2] = 0
     while not num % 2:
-        # if 2 not in factors:
         factors[2] += 1
         num = num // 2
     primes = [2]
@@ -36,7 +35,6 @@ def primefactors(num):
             continue
         factors[p] = 0
         while not num % p:
-            # if p not in factors:
             factors[p] += 1
             num = num // p        
         p += 2
