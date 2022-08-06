@@ -15,10 +15,8 @@
 # 1 millionth number will be 3rd set of 9! numbers. So in increasing order the first number wll be 2.
 import math
 
-from sympy import N
-
 n = 1000000
-print([math.perm(i) for i in range(1, 10)])
+
 def find_len(n):
     if n > math.perm(10):
         raise ValueError("number too large")
@@ -30,17 +28,13 @@ def find_len(n):
             moren = i + 1
         else:
             return i
-            
-# print(find_len(n))
 
 def findfirst(n):
     moren = find_len(n)
-    # print(moren)
     if moren == 1:
         return n, 0
     lessnperm = math.perm(moren-1)
     for i in range(10):
-        # print(n, lessnperm)
         if n > lessnperm:
             n -= lessnperm
         elif n == lessnperm:
@@ -55,13 +49,9 @@ def findfull(n):
     remains = list(range(10))
     while n:
         start = find_len(n)
-        print(start)
         for i in range(len(remains)-start):
-            # print(i, remains, start)
             num += str(remains.pop(0))
-        print(n, num)
         i, n = findfirst(n)
-        print(i, n)
         num += str(remains.pop(i))
         if n == 0:
             num += "".join(map(str, remains[::-1]))
@@ -70,6 +60,4 @@ def findfull(n):
         num += str(i)
     return num
 
-print('first', findfirst(n=4))
-print('first', findfull(n=4))
 print(findfull(n=1000000))
