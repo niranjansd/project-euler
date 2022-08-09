@@ -1,5 +1,4 @@
 
-# sumofdiag = 1+(1+2)+(1+2+2)+(1+2+2+2)+(1+2+2+2+2)+
 def sumofdiag(n):
     sumd = 1
     num = 1
@@ -10,6 +9,4 @@ def sumofdiag(n):
             sumd += num
     return sumd
 
-print(sumofdiag(1))
-print(sumofdiag(2))
 print(sumofdiag(500))
