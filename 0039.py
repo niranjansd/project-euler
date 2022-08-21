@@ -20,4 +20,4 @@ for p in range(1, 1001):
     if numsols > largest:
         largest = numsols
         largestp = p
-        print(largest, p)
+print(largest, largestp)
