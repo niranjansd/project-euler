@@ -25,6 +25,21 @@ def primefactors(num):
     return factors
     
 
+def is_palindrome(num):
+    num = str(num)
+    if len(num) == 1:
+        return True
+    if len(num) == 2:
+        if num[0] == num[1]:
+            return True
+        else:
+            return False
+    if num[0] == num[-1]:
+        return is_palindrome(num[1:-1])
+    else:
+        return False
+
+
 def SieveOfEratosthenes(n = 1000000):
     prime = [True for i in range(n + 1)]
      
@@ -38,5 +53,3 @@ def SieveOfEratosthenes(n = 1000000):
                 prime[i] = False
         p += 1
     return np.nonzero(prime)[0][2:]
-
-primes = SieveOfEratosthenes(10000)
