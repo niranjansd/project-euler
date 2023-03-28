@@ -79,3 +79,21 @@ def SieveOfEratosthenes(n = 1000000, primesinit=[]):
                 prime[i] = False
         p += 1
     return np.nonzero(prime)[0]
+
+
+def totient(n):
+    ''' Euler's totient function, phi(n) [sometimes called the phi function],
+    is used to determine the number of positive numbers less than or equal to n
+    which are relatively prime to n. For example, as 1, 2, 4, 5, 7, and 8,
+    are all less than nine and relatively prime to nine, phi(9)=6.
+    '''
+    if isprime(n):
+        return n-1
+    else:
+        pfs = primefactors(n)
+        pfs = list(set(pfs))
+        pfs.sort()
+        # print(pfs)
+        for pf in pfs:
+            n = n * (1 - 1/pf)
+        return int(n)
