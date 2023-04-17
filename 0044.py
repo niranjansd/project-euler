@@ -17,107 +17,147 @@ import enum
 import numpy as np
 import heapq
 pents = []
-for n in range(0, 1000000):
+for n in range(1, 1000000):
     pents.append(int(n*(3*n-1)/2))
-# print(pents[:100])
+print(pents[:10], pents[-1])
+diffpents = np.diff(pents)
+pents = np.array(pents)
+diff = pents[0]
+sum = pents[1]
+maxp = pents[-1]
+works = False
+for i, diff in enumerate(pents):
+    # argmaxlarger = np.argmax(diffpents>diff)+2
+    # # print(diff, argmaxlarger, pents[(i+1):argmaxlarger])
+    # for larger in pents[(i+1):argmaxlarger]:
+    j = i+1
+    larger = pents[j]
+    smaller = larger - diff
+    sum = larger + smaller
+    while smaller < pents[j-1]:
+        j += 1
+        larger = pents[j]
+        smaller = larger - diff
+        sum = larger + smaller
+        if smaller in pents and sum in pents:
+            print(smaller, larger, diff, sum)
+            works = True
+            break
+    if works:
+        break
+    if not i % 100:
+        print(i, smaller, larger, diff, sum)
+        # break
+    # if i > 100:
+    #     break
+    #     print(i, larger-diff, larger, diff, larger+larger-diff)
+print(i, larger-diff, larger, diff, larger+larger-diff)
+# min = pents[0]
+# max = pents[1]
 
-pairs = []
-ik = 1
-ij = 1
-pk = pents[ik]
-pj = pents[ij]
-def cond(k, j):
-    return ((pents[k]+pents[j]) in pents) and (np.absolute((pents[k]-pents[j])) in pents)
 
-# pairs = {}
-latest_condition = cond(ik,ij)
-# pairs = [(0, 1, 1), (4, 1, 2), (4, 2, 1)]
-pairdict = {1: 1}
-pairs = [(0, 1, 1)]
-heapq.heapify(pairs)
-i = 0
 
-# while not cond(ik, ij):
-#     for x in range(100):
-#         ik += 1
-#         for y in range(100):
-#             ij += 1
-#             if cond(ik, ij):
-#                 diff = np.absolute(pents[tk]-pents[tj])
-#                 heapq.heappush(pairs, (diff, tk, tj))
 
-#     # for tk, tj in [(ik+1, ij), (ik, ij+1), (ik+1, ij+1)]:
-#     #     if tk < tj:
-#     #         if tj >= len(pents):
-#     #             for i in range(len(pents), tj+1):
-#     #                 pents.append(i*(3*i-1)/2)
-#     #         diff = np.absolute(pents[tk]-pents[tj])
-#     #         if tk in pairdict:
-#     #             if pairdict[tk] < tj :
-#     #                 heapq.heappush(pairs, (diff, tk, tj))
-#     #                 pairdict[tk] = tj
-#     #         else:
-#     #             heapq.heappush(pairs, (diff, tk, tj))
-#     #             pairdict[tk] = tj
-#     i+=1
-#     latest_diff, ik, ij = heapq.heappop(pairs)
+
+
+
+# pairs = []
+# ik = 1
+# ij = 1
+# pk = pents[ik]
+# pj = pents[ij]
+# def cond(k, j):
+#     return ((pents[k]+pents[j]) in pents) and (np.absolute((pents[k]-pents[j])) in pents)
+
+# # pairs = {}
+# latest_condition = cond(ik,ij)
+# # pairs = [(0, 1, 1), (4, 1, 2), (4, 2, 1)]
+# pairdict = {1: 1}
+# pairs = [(0, 1, 1)]
+# heapq.heapify(pairs)
+# i = 0
+
+# # while not cond(ik, ij):
+# #     for x in range(100):
+# #         ik += 1
+# #         for y in range(100):
+# #             ij += 1
+# #             if cond(ik, ij):
+# #                 diff = np.absolute(pents[tk]-pents[tj])
+# #                 heapq.heappush(pairs, (diff, tk, tj))
+
+# #     # for tk, tj in [(ik+1, ij), (ik, ij+1), (ik+1, ij+1)]:
+# #     #     if tk < tj:
+# #     #         if tj >= len(pents):
+# #     #             for i in range(len(pents), tj+1):
+# #     #                 pents.append(i*(3*i-1)/2)
+# #     #         diff = np.absolute(pents[tk]-pents[tj])
+# #     #         if tk in pairdict:
+# #     #             if pairdict[tk] < tj :
+# #     #                 heapq.heappush(pairs, (diff, tk, tj))
+# #     #                 pairdict[tk] = tj
+# #     #         else:
+# #     #             heapq.heappush(pairs, (diff, tk, tj))
+# #     #             pairdict[tk] = tj
+# #     i+=1
+# #     latest_diff, ik, ij = heapq.heappop(pairs)
     
-#     if not i % 1000:
-#         print(i, ik, ij, pents[ik], pents[ij], pents[ik]+pents[ij], pents[ik]-pents[ij])
+# #     if not i % 1000:
+# #         print(i, ik, ij, pents[ik], pents[ij], pents[ik]+pents[ij], pents[ik]-pents[ij])
+# #         # print(i, ik, ij)
+# #         # break
+# # start = time.time()
+# while len(pairs):
+
+#     latest_diff, ik, ij = heapq.heappop(pairs)
+#     if cond(ik,ij):
+#         break
+#     for tk, tj in [(ik+1, ij), (ik, ij+1), (ik+1, ij+1)]:
+#         if tk < tj:
+#             if tj >= len(pents):
+#                 for k in range(len(pents), tj+100):
+#                     pents.append(int(k*(3*k-1)/2))
+#             diff = np.absolute(pents[tk]-pents[tj])
+#             # if diff not in pents:
+#             #     continue
+#             if tk in pairdict:
+#                 if pairdict[tk] < tj :
+#                     heapq.heappush(pairs, (diff, tk, tj))
+#                     pairdict[tk] = tj
+#             else:
+#                 heapq.heappush(pairs, (diff, tk, tj))
+#                 pairdict[tk] = tj
+#     i+=1
+#     # if not i%100:
+#     #     # print(i, ik, ij)
+#     if not i % 100000:
+#         print(i, ik, ij, pents[ik], pents[ij], pents[ik]+pents[ij], np.absolute(pents[ik]-pents[ij]))
 #         # print(i, ik, ij)
 #         # break
-# start = time.time()
-while len(pairs):
-
-    latest_diff, ik, ij = heapq.heappop(pairs)
-    if cond(ik,ij):
-        break
-    for tk, tj in [(ik+1, ij), (ik, ij+1), (ik+1, ij+1)]:
-        if tk < tj:
-            if tj >= len(pents):
-                for k in range(len(pents), tj+100):
-                    pents.append(int(k*(3*k-1)/2))
-            diff = np.absolute(pents[tk]-pents[tj])
-            # if diff not in pents:
-            #     continue
-            if tk in pairdict:
-                if pairdict[tk] < tj :
-                    heapq.heappush(pairs, (diff, tk, tj))
-                    pairdict[tk] = tj
-            else:
-                heapq.heappush(pairs, (diff, tk, tj))
-                pairdict[tk] = tj
-    i+=1
-    # if not i%100:
-    #     # print(i, ik, ij)
-    if not i % 100000:
-        print(i, ik, ij, pents[ik], pents[ij], pents[ik]+pents[ij], np.absolute(pents[ik]-pents[ij]))
-        # print(i, ik, ij)
-        # break
-print(i, ik, ij, pents[ik], pents[ij], pents[ik]+pents[ij], np.absolute(pents[ik]-pents[ij]))
+# print(i, ik, ij, pents[ik], pents[ij], pents[ik]+pents[ij], np.absolute(pents[ik]-pents[ij]))
 
 
-# print(cond(1,1))
-# # for i, pi in enumerate(pents):
-# for i in range(len(pents)):
-#     pi = pents[i]
-#     skip = False
-#     # if not i%1000:
-#     #     print(i, pi)
-#     for j in range(i, len(pents)-1):
-#         pj = pents[j]
-#         # if not j%1000:
-#         #     print(j, pj)
-#         if pi+pj < pents[j+1]:
-#             skip=True
-#         if pj-pi > pents[j-1]:
-#             skip=True
-#         if np.absolute(pj-pi) in pents:
-#             if pi+pj in pents:
-#                 pairs.append([pj-pi, pi, pj])
-#         if skip:
-#             break
+# # print(cond(1,1))
+# # # for i, pi in enumerate(pents):
+# # for i in range(len(pents)):
+# #     pi = pents[i]
+# #     skip = False
+# #     # if not i%1000:
+# #     #     print(i, pi)
+# #     for j in range(i, len(pents)-1):
+# #         pj = pents[j]
+# #         # if not j%1000:
+# #         #     print(j, pj)
+# #         if pi+pj < pents[j+1]:
+# #             skip=True
+# #         if pj-pi > pents[j-1]:
+# #             skip=True
+# #         if np.absolute(pj-pi) in pents:
+# #             if pi+pj in pents:
+# #                 pairs.append([pj-pi, pi, pj])
+# #         if skip:
+# #             break
 
-# print(sorted(pairs))
+# # print(sorted(pairs))
 
 
